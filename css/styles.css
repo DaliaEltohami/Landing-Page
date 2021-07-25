@@ -66,7 +66,7 @@ main {
 
 section {
     position: relative;
-    min-height: 80vh;
+    /* min-height: 80vh; */
 }
 
 
@@ -115,11 +115,24 @@ section {
 /* Header Styles */
 .page__header {
     background: #cc1;
-    position: fixed;
     top: 0;
     width: 100%;
     z-index: 5;
     margin-bottom: 20px;
+    position: fixed;
+}
+.active__header{
+    visibility: visible;
+    opacity: 1;
+    transition-property: opacity, visibility;
+    transition-duration: 1s, 0s;
+}
+.hidden__header{
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity, visibility;
+    transition-duration: 1s, 0s;
+    transition-delay: 0s, 1s;
 }
 
 /* Footer Styles */
@@ -255,3 +268,15 @@ section.active-section .landing__container::after {
     background-color: transparent;
     color: #fff;
 }
+.content-left .collapse, .content-right .collapse{
+    text-decoration: underline;
+    color: #cc1;
+    cursor: pointer;
+}
+.content-left .collapse{
+    float: right;
+}
+.content-right .collapse{
+    float: left;
+}
+
