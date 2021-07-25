@@ -21,6 +21,9 @@ Build a landing page that uses javascript to create an interactive navigational 
 - Navigation is built dynamically as an unordered list.
 - While scrolling through the page, the viewed section will be the active one, as well the corresponding link in the navigation menu
 - When clicking an item from the navigation menu, the link will smoothly scroll to the appropriate section.
+- Scroll to top button is added on the page that’s only visible when the user scrolls below the fold of the page.
+- Sections are collapsible, when you click on collapse text the section will be hidden, and the section's header will be clickalbe to show the section again
+- Fixed navigation bar is hidden while not scrolling, and will be visible again when start scrolling.
 
 ## Dependencies
 
