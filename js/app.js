@@ -72,7 +72,7 @@ let scrolling;
 
 // Add scroll event listener to the window 
 window.addEventListener("scroll",(event)=>{
-    // Clear setTimeout when start scrolling event 
+    // Clear Timeout throughout the scroll
     window.clearTimeout(scrolling);
     // manipulate header classList to make in visible while scrolling and hidden while not scrolling
     header.classList.remove("hidden__header");
