@@ -24,32 +24,52 @@ const navMenu = document.getElementById("navbar__list");
 // variable frag is the document fragment that will hold all li elements that will be created and append
 // all of them at one time to the ul tag
 const frag = document.createDocumentFragment();
+// Select the header tag 
+const header = document.querySelector("header");
 
 /**
  * End Global Variables
- * Start Helper Functions
- * 
-*/
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
 
 /* Creating forEach loop to loop over all sections in the html
  * In each iteration we create li element with text equal to the value of section's data-nav value
  * Add event listener to each li that will scroll smoothly 
 */
 sections.forEach((element)=>{
+    // Create new li element
     let listElement = document.createElement("li");
+    // Make the text content of this li equal to the corresponding section's data-nav attribute value 
     listElement.textContent = element.getAttribute("data-nav");
+    // Add class "menu__link" to the li element 
     listElement.classList.add("menu__link");
+    // Add event listener to li element to scroll smoothy to the corresponding section
     listElement.addEventListener("click",(event)=>{
         element.scrollIntoView({behavior:"smooth" , block:"start" , inline:"nearest"});
     });
+    // Append the li element to the frag
     frag.appendChild(listElement);
-
+    
+    /**
+     * Here we will make the sections collapsible
+     * 
+    */
+    
+    // get the section id value
+    let sectionId = element.getAttribute("id");
+    // select the span of the section
+    let collapse = document.querySelector("#"+sectionId + " span");
+    // select the heading of the section 
+    let heading = document.querySelector("#"+sectionId + " h2");
+    // add event listener to the span to collapse the section when click on it
+    collapse.addEventListener("click",(e)=>{
+        collapse.parentElement.style.display= "none";
+        // Make the heading cursor as pointer
+        heading.style.cursor="pointer";
+        // Add event listener to the heading to uncollapse the section when click on it 
+        heading.addEventListener("click",(e)=>{
+            collapse.parentElement.style.display= "block";
+        });
+    });
 });
 
 // build the nav by appending the frag to the ul element 
@@ -61,8 +81,16 @@ const listElements = document.querySelectorAll("li");
 // set the initial active link 
 listElements[0].classList.add("active-link");
 
+// Define variable to setup the scrolling 
+let scrolling;
+
 // Add scroll event listener to the window 
 window.addEventListener("scroll",(event)=>{
+    // Clear setTimeout when start scrolling event 
+    window.clearTimeout(scrolling);
+    // manipulate header classList to make in visible while scrolling and hidden while not scrolling
+    header.classList.remove("hidden__header");
+    header.classList.add("active__header");
     // Loop over all sections to add "active-section" class to the section in the view port 
     sections.forEach((elemnt)=>{
         // Check if this element will be the active section
@@ -104,6 +132,21 @@ window.addEventListener("scroll",(event)=>{
             elemnt.classList.remove("active-link");
         });
     }
+    
+    /**
+     * Here we will setimeout to hide or show the header
+     * 
+    */
+    
+    // Check if the page is not at the top 
+    if (document.body.getBoundingClientRect().top < 0){
+        // Set timeout to check if the scroll is stopped
+        scrolling = setTimeout(()=>{
+            // Manipulate the header classList to hide the header when stop scrolling
+            header.classList.remove("active__header")
+            header.classList.add("hidden__header")
+        }, 2000);
+    }   
 });
 
 // Display Scroll Back to top button when user start to scroll the page 
@@ -120,20 +163,5 @@ window.addEventListener("scroll",(event)=>{
 topbtn.addEventListener("click",(event)=>{
     window.scrollTo(0,0);
 });
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
 
 
